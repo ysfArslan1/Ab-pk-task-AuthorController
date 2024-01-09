@@ -20,8 +20,17 @@ namespace Ab_pk_task3.Aplication.BooksOperations.Commands.UpdateBook
             if (item is null)
                 throw new InvalidOperationException(" Bulunamadı");
 
-            if (_dbContext.Books.Any(x => x.Title.ToLower() == item.Title.ToLower() && x.Id != item.Id))
+            var book = _dbContext.Books.Where(x => x.Title.ToLower() == item.Title.ToLower() && x.Id != item.Id);
+            if(book!=null)
                 throw new InvalidOperationException("Aynı isim bulunmakta");
+
+            var genre = _dbContext.Genres.Where(x => x.Id == Model.GenreId).SingleOrDefault();
+            if (genre == null)
+                throw new InvalidOperationException("Böyle bir tür yok");
+
+            var author = _dbContext.Authors.Where(x => x.Id == Model.AuthorId).SingleOrDefault();
+            if (author == null)
+                throw new InvalidOperationException("Böyle bir yazar yok");
 
 
             item.Title = Model.Title != default ? Model.Title : item.Title;

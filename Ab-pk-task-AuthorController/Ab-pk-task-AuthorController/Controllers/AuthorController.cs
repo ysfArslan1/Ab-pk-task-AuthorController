@@ -30,7 +30,7 @@ namespace Ab_pk_task3.Controllers
             _mapper = mapper;
         }
 
-        // GET: get GetClasss
+        // GET: get GetAuthors
         [HttpGet]
         public IActionResult GetAuthors()
         {
